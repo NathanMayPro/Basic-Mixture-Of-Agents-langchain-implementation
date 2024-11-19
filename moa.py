@@ -56,7 +56,7 @@ class MoA:
         
         # Adjust layer based on strategy
         if layer_strategy == 'model':
-            self.layer = len(models_layer)
+            self.nb_models_by_layer = len(models_layer)
         
         # Setup logging
         logging.basicConfig(level=logging.INFO)
@@ -200,7 +200,7 @@ class MoA:
         
         await self.log_trace(
             "role_response",
-            {},
+            response.content,
             model_name=llm.name
         )
         return response.content
