@@ -1,9 +1,9 @@
 # Mixture of Agents (MoA) Implementation
 
-## IMPORTANT if you try to use small model you 
-## will need to retry some requests in the role generation steps
-## for now we using retry from langchain but an error occurs with langchain-core==0.3.19
-## for using retry change this on the downloaded library
+#### IMPORTANT if you try to use small model you 
+#### will need to retry some requests in the role generation steps
+#### for now we using retry from langchain but an error occurs with langchain-core==0.3.19
+#### for using retry change this on the downloaded library
 path : .venv/lib/python3.11/site-packages/langchain_core/output_parser/json.py 
 for python3.11 and venv
 ```python
