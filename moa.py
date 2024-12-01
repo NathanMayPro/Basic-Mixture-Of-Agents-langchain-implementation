@@ -8,7 +8,7 @@ import json
 import os
 import random
 
-from langchain.output_parsers import PydanticOutputParser, RetryOutputParser
+from langchain.output_parsers import PydanticOutputParser
 from langchain_core.runnables import RunnableLambda, RunnableParallel
 from langchain.prompts import ChatPromptTemplate
 from langchain_mistralai import ChatMistralAI
@@ -143,7 +143,6 @@ class MoA:
 
     async def generate_roles(self, user_prompt: str, count: int = 5):
         parser = PydanticOutputParser(pydantic_object=ListBestRoles)
-        retry_parser = RetryOutputParser.from_llm(parser=parser, llm=self.llm_roles)
         
         llm_prompt = ChatPromptTemplate.from_messages([
             ("system", "Give me a list of {count} roles that would be best for this user prompt"
@@ -155,11 +154,8 @@ class MoA:
         ])
         
         chain = llm_prompt | self.llm_roles | parser
-        main_chain = RunnableParallel(
-            completion=chain, prompt_value=llm_prompt
-        ) | RunnableLambda(lambda x: retry_parser.parse_with_prompt(**x))
 
-        response = main_chain.invoke({
+        response = chain.invoke({
             "user_prompt": user_prompt,
             "count": count,
             "format_instructions": parser.get_format_instructions()

@@ -1,22 +1,5 @@
 # Mixture of Agents (MoA) Implementation
 
-#### IMPORTANT if you try to use small model you 
-#### will need to retry some requests in the role generation steps
-#### for now we using retry from langchain but an error occurs with langchain-core==0.3.19
-#### for using retry change this on the downloaded library
-path : .venv/lib/python3.11/site-packages/langchain_core/output_parser/json.py 
-for python3.11 and venv
-```python
-class JsonOutputParser:
-    ...
-    def parse():
-        ...
-        # change text for str(text)
-        return self.parse_result([Generation(text=str(text))]) 
-```
-
-A Python implementation of Mixture of Agents using LangChain, allowing for dynamic interaction between multiple AI models with different roles or strategies.
-
 ## Overview
 
 This implementation provides a flexible framework for combining multiple language models in a layered approach, with three main strategies:
